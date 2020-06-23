@@ -1,0 +1,20 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "sqlite"
+  url = "***"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Store {
+  coordinates   String?
+  date          DateTime
+  id            Int             @default(autoincrement()) @id
+  location      String?
+  storename     String
+  amount        Int     @default(value: 0)
+}
