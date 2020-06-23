@@ -14,8 +14,6 @@ app.use(bodyParser.json());
 
 app.post('/api/stores', async (req, res) => {    
     const { body } = req;
-    
-    console.log(body.date);
 
     const dataToAdd = {
         storename: body.storename,
@@ -32,7 +30,6 @@ app.post('/api/stores', async (req, res) => {
 
     res.status(200).json(store);
 }); 
-
 
 
 app.get('/api/stores', (req, res) => {
@@ -60,6 +57,34 @@ app.get('/api/stores', (req, res) => {
         res.status(200).json({ results });
     })
 })
+
+app.put('/api/stores/:id', async (req, res) => {
+
+    const reqid = req.params.id;
+    const storename=  req.body.storename;
+
+    console.log(reqid);
+    console.log(storename);
+
+    const updatedStore = await prisma.store.update({
+        data: { storename: storename },
+        where: { id: Number(reqid) },
+    })
+
+    res.status(200).json({ updatedStore });
+})
+
+app.delete('/api/stores/:id', async (req, res) => {
+
+    const reqid = req.params.id;
+
+    const deletedStore  = await prisma.store.delete({
+        where: { id: Number(reqid) },
+    });
+
+    res.status(200).json({ deletedStore });
+})
+
 
 app.listen(port, function () {
     console.log(`Example app listening on port ${process.env.PORT}!`);
