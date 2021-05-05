@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "sqlite"
-  url      = "file:dev.db"
+  url      = "file: dev.db"
 }
 
 generator client {
@@ -18,7 +18,6 @@ model Store {
   storename     String
   StoresOnItems StoresOnItems[]
   Item          Item[]          @relation(references: [id])
-  amount        Int             @default(value: 0)
 }
 
 model Item {
